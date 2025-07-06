@@ -1,5 +1,5 @@
 syntax            = "proto3";
-option go_package = "github.com/chise0904/golang_template/proto/pkg/common";
+option go_package = "github.com/chise0904/golang_template_apiserver/proto/pkg/common";
 package common;
 
 message Pagination {

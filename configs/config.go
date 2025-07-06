@@ -3,6 +3,7 @@ package configs
 import (
 	"github.com/chise0904/golang_template_apiserver/pkg/web"
 	"github.com/chise0904/golang_template_apiserver/pkg/zlog"
+
 	upstream "github.com/chise0904/golang_template_apiserver/service/upstream_grpc"
 
 	// jetstream_client "gitlab.com/hsf-cloud/lib/messaging/nats/jetstream"
@@ -12,10 +13,10 @@ import (
 
 type Config struct {
 	fx.Out
-	GorseConfig      *gorse.Config                `mapstructure:"gorse"`
-	Log              *zlog.Config                 `mapstructure:"log"`
-	JetstreamConfig  *jetstream_client.Config     `mapstructure:"jetstream"`
-	SSEConfig        *SSEConfig                   `mapstructure:"sse"`
+	// GorseConfig      *gorse.Config                `mapstructure:"gorse"`
+	Log *zlog.Config `mapstructure:"log"`
+	// JetstreamConfig  *jetstream_client.Config     `mapstructure:"jetstream"`
+	// SSEConfig        *SSEConfig                   `mapstructure:"sse"`
 	WebConfig        *web.Config                  `mapstructure:"web"`
 	UpstreamGrpc     *upstream.UpstreamGrpcConfig `mapstructure:"upstream_grpc"`
 	ApiGatewayConfig *ApiGatewayConfig            `mapstructure:"api_gateway"`

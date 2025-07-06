@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"github.com/chise0904/golang_template_apiserver/pkg/auth"
 	"github.com/labstack/echo/v4"
 	// "gitlab.com/hsf-cloud/lib/auth"
 	// "gitlab.com/hsf-cloud/proto/pkg/storage_service"
@@ -128,8 +129,8 @@ import (
 // }
 
 type UsersHandler interface {
-	// UserSignUP(c echo.Context) error
-	// UserSignIN(c echo.Context) error
+	UserSignUP(c echo.Context) error
+	UserSignIN(c echo.Context) error
 	// EmailVerification(c echo.Context) error
 	// EmailVerificationByCode(c echo.Context) error
 	// SendVerificationCode(c echo.Context) error
@@ -142,7 +143,7 @@ type UsersHandler interface {
 	// GetProfile(c echo.Context) error
 	// ListProfiles(c echo.Context) error
 	// UpdateProfile(c echo.Context) error
-	// TokenVerify(c echo.Context) (*auth.UserClaims, error)
+	TokenVerify(c echo.Context) (*auth.UserClaims, error)
 	// RefreshAccessToken(c echo.Context) error
 	CreateAccount(c echo.Context) error
 	// SetAccountBlockStatus(c echo.Context) error

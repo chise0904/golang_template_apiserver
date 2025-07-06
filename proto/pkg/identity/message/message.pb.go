@@ -98,7 +98,7 @@ const file_identity_message_message_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12!\n" +
 	"\ftext_content\x18\x03 \x01(\tR\vtextContent\x12!\n" +
-	"\fhtml_content\x18\x04 \x01(\tR\vhtmlContentBAZ?github.com/chise0904/golang_template/proto/pkg/identity/messageb\x06proto3"
+	"\fhtml_content\x18\x04 \x01(\tR\vhtmlContentBKZIgithub.com/chise0904/golang_template_apiserver/proto/pkg/identity/messageb\x06proto3"
 
 var (
 	file_identity_message_message_proto_rawDescOnce sync.Once

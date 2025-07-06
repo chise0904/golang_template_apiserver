@@ -6,15 +6,15 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/chise0904/golang_template_apiserver/configs"
+	"github.com/chise0904/golang_template_apiserver/constants"
+	"github.com/chise0904/golang_template_apiserver/delivery"
+	"github.com/chise0904/golang_template_apiserver/pkg/auth"
+	"github.com/chise0904/golang_template_apiserver/pkg/errors"
+	"github.com/chise0904/golang_template_apiserver/pkg/utils"
+	"github.com/chise0904/golang_template_apiserver/proto/pkg/identity"
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
-	"gitlab.com/hsf-cloud/e-commerce/api-gateway/configs"
-	"gitlab.com/hsf-cloud/e-commerce/api-gateway/constants"
-	"gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery"
-	"gitlab.com/hsf-cloud/e-commerce/api-gateway/pkg/utils"
-	"gitlab.com/hsf-cloud/lib/auth"
-	"gitlab.com/hsf-cloud/lib/errors"
-	"gitlab.com/hsf-cloud/proto/pkg/identity"
 )
 
 type handler struct {
@@ -22,6 +22,16 @@ type handler struct {
 
 	identityGRPCClient identity.IdentityServiceClient
 	htmlTemplate       map[identity.VerificationResponse_VeriResult][]byte
+}
+
+func NewIdentityHandler(apiGatewayConfig *configs.ApiGatewayConfig, identityGRPCClient identity.IdentityServiceClient) delivery.UsersHandler {
+	h := &handler{
+		apiGatewayConfig:   apiGatewayConfig,
+		identityGRPCClient: identityGRPCClient,
+		htmlTemplate:       make(map[identity.VerificationResponse_VeriResult][]byte),
+	}
+
+	return h
 }
 
 func LoadHtmlTemplate(i delivery.UsersHandler, apiGatewayConfig *configs.ApiGatewayConfig) error {
@@ -63,16 +73,6 @@ func LoadHtmlTemplate(i delivery.UsersHandler, apiGatewayConfig *configs.ApiGate
 	}
 
 	return nil
-}
-
-func NewIdentityHandler(apiGatewayConfig *configs.ApiGatewayConfig, identityGRPCClient identity.IdentityServiceClient) delivery.UsersHandler {
-	h := &handler{
-		apiGatewayConfig:   apiGatewayConfig,
-		identityGRPCClient: identityGRPCClient,
-		htmlTemplate:       make(map[identity.VerificationResponse_VeriResult][]byte),
-	}
-
-	return h
 }
 
 func (h *handler) TokenVerify(c echo.Context) (*auth.UserClaims, error) {

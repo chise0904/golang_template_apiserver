@@ -4,10 +4,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/chise0904/golang_template_apiserver/pkg/errors"
 	lru "github.com/hashicorp/golang-lru"
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
-	"gitlab.com/hsf-cloud/lib/errors"
 )
 
 type tokenBucket struct {

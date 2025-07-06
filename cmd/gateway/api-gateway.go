@@ -9,18 +9,18 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 
-	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery"
+	"github.com/chise0904/golang_template_apiserver/delivery"
 
 	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery/handler/logistics"
 	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery/handler/order"
 	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery/handler/product"
 	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery/handler/sse"
 	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery/handler/storage"
-	// "gitlab.com/hsf-cloud/e-commerce/api-gateway/delivery/handler/users"
+	"github.com/chise0904/golang_template_apiserver/delivery/handler/users"
 	// sse_impl "gitlab.com/hsf-cloud/e-commerce/api-gateway/service/sse_service/impl"
-	// upstream "gitlab.com/hsf-cloud/e-commerce/api-gateway/service/upstream_grpc"
 	"github.com/chise0904/golang_template_apiserver/pkg/config"
 	web "github.com/chise0904/golang_template_apiserver/pkg/web/echo"
+	upstream "github.com/chise0904/golang_template_apiserver/service/upstream_grpc"
 
 	// jetstream_client "gitlab.com/hsf-cloud/lib/messaging/nats/jetstream"
 	// "gitlab.com/hsf-cloud/lib/recommender/gorse"
@@ -54,7 +54,7 @@ func run(cmd *cobra.Command, args []string) {
 			// upstream.SetupChatServiceGrpcClient,
 			// upstream.SetupStorageServiceGrpcClient,
 			// upstream.SetupProudctMgmtServiceGrpcClient,
-			// upstream.SetupUserMgmtServiceGrpcClient,
+			upstream.SetupUserMgmtServiceGrpcClient,
 			// upstream.SetupPaymentMgmtServiceGrpcClient,
 			// upstream.SetupProductRatingServiceGrpcClient,
 			// upstream.SetDigitalAssetServiceGrpcClient,
@@ -67,7 +67,7 @@ func run(cmd *cobra.Command, args []string) {
 			// jetstream_client.NewJetStream,
 			web.NewEcho,
 			// sse_impl.NewSSE_Service,
-			// users.NewIdentityHandler,
+			users.NewIdentityHandler,
 			// product.NewProductHandler,
 			// storage.NewStorageHandler,
 			// order.NewOrderHandler,

@@ -1,7 +1,7 @@
 syntax = "proto3";
 package identity;
 
-option go_package = "github.com/chise0904/golang_template/proto/pkg/identity";
+option go_package = "github.com/chise0904/golang_template_apiserver/proto/pkg/identity";
 
 import "common/pagination.proto";
 import "google/protobuf/empty.proto";
@@ -22,9 +22,9 @@ service IdentityService {
     //     returns (google.protobuf.Empty);
     // rpc ModifyPermissions(ModifyPermissionsRequest) returns (google.protobuf.Empty);
 // 
-    // rpc LoginAccount(LoginAccountRequest) returns (LoginAccountResponse);
+    rpc LoginAccount(LoginAccountRequest) returns (LoginAccountResponse);
     // rpc ReFreshToken(ReFreshTokenRequest) returns (ReFreshTokenResponse);
-    // rpc CheckAccessToken(CheckAccessTokenRequest) returns (CheckAccessTokenResponse);
+    rpc CheckAccessToken(CheckAccessTokenRequest) returns (CheckAccessTokenResponse);
     // rpc SendVerificationCode(SendVerificationCodeRequest) returns (google.protobuf.Empty);
 // 
     // rpc SetAccountBlockStatus(SetAccountBlockStatusRequest) returns (google.protobuf.Empty);

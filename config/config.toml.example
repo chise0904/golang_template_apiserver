@@ -1,0 +1,73 @@
+# API Gateway Configuration
+# =========================
+
+[log]
+env = "local"
+app_id = "e-commerce-platform"
+level = 7  # 0 Debug 1 INFO 2 Warn 3 Error
+debug = true
+enable_caller = true
+caller_min_level = 3
+
+[web]
+mode = "debug"
+port = "8080"
+request_dump = true
+max_log_body_size = 1024
+
+[api_gateway]
+website_addr = "http://localhost:3000"
+addr = ":8080"
+rate_limit_enabled = true
+rate_limit_pool_size = 1000
+rate_limit_header_key = ""
+token_gen_rate = 10.0
+token_bucket_capacity = 100.0
+token_bucket_capacity_for_public_source = 50.0
+html_template_path = "./templates"
+
+[api_gateway.resource_config]
+sign_url_enable = false
+sign_url_duration_min = 60
+
+[upstream_grpc]
+user_mgmt_service_grpc = "localhost:50051"
+# chat_service_grpc = "localhost:50052"
+# storage_service_grpc = "localhost:50053"
+# product_mgmt_service_grpc = "localhost:50054"
+# payment_mgmt_service_grpc = "localhost:50055"
+# order_mgmt_service_grpc = "localhost:50056"
+# logistics_service_grpc = "localhost:50057"
+
+# JWT Configuration
+[jwt]
+secret = "your-jwt-secret-key-here"
+expiry_hours = 24
+
+# Database Configuration (if needed)
+[database]
+host = "localhost"
+port = 5432
+name = "ecommerce"
+user = "postgres"
+password = "password"
+ssl_mode = "disable"
+
+# Redis Configuration (if needed)
+[redis]
+host = "localhost"
+port = 6379
+password = ""
+db = 0
+
+# External Services
+[services]
+identity_service_url = "http://localhost:50051"
+product_service_url = "http://localhost:50052"
+order_service_url = "http://localhost:50053"
+payment_service_url = "http://localhost:50054"
+
+# Development Settings
+[development]
+debug = true
+environment = "development" 

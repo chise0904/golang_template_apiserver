@@ -1,19 +1,19 @@
 package users
 
-// import (
-// 	"net/http"
-// 	"strings"
+import (
+	// 	"net/http"
+	// 	"strings"
 
-// 	"github.com/labstack/echo/v4"
-// 	"gitlab.com/hsf-cloud/e-commerce/api-gateway/constants"
-// 	"gitlab.com/hsf-cloud/e-commerce/api-gateway/pkg/utils"
-// 	"gitlab.com/hsf-cloud/lib/auth"
-// 	"gitlab.com/hsf-cloud/lib/errors"
-// 	"gitlab.com/hsf-cloud/lib/pagination"
-// 	"gitlab.com/hsf-cloud/lib/web"
-// 	"gitlab.com/hsf-cloud/proto/pkg/common"
-// 	"gitlab.com/hsf-cloud/proto/pkg/identity"
-// )
+	// 	"github.com/labstack/echo/v4"
+	// 	"gitlab.com/hsf-cloud/e-commerce/api-gateway/constants"
+	// 	"gitlab.com/hsf-cloud/e-commerce/api-gateway/pkg/utils"
+	// 	"gitlab.com/hsf-cloud/lib/auth"
+	// 	"gitlab.com/hsf-cloud/lib/errors"
+	// 	"gitlab.com/hsf-cloud/lib/pagination"
+	// 	"gitlab.com/hsf-cloud/lib/web"
+	"github.com/chise0904/golang_template_apiserver/proto/pkg/common"
+	// "gitlab.com/hsf-cloud/proto/pkg/identity"
+)
 
 // // =================== private ===================
 // // ChangeContacts implements delivery.UsersHandler. (private)
@@ -390,18 +390,18 @@ package users
 // 	return result
 // }
 
-// func (h *handler) convertRestfulRequestProfileBoolToProtoBoolType(r *bool) *common.BoolType {
-// 	var result *common.BoolType
+func (h *handler) convertRestfulRequestProfileBoolToProtoBoolType(r *bool) *common.BoolType {
+	var result *common.BoolType
 
-// 	if r == nil {
-// 		result = common.BoolType_NoSet.Enum()
-// 	} else if *r {
-// 		result = common.BoolType_True.Enum()
-// 	} else if !*r {
-// 		result = common.BoolType_False.Enum()
-// 	}
-// 	return result
-// }
+	if r == nil {
+		result = common.BoolType_NoSet.Enum()
+	} else if *r {
+		result = common.BoolType_True.Enum()
+	} else if !*r {
+		result = common.BoolType_False.Enum()
+	}
+	return result
+}
 
 // func (h *handler) convertProtoPermissionValueToJson(r *identity.Permission) *Permission {
 // 	return &Permission{

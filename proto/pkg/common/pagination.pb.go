@@ -101,7 +101,7 @@ const file_common_pagination_proto_rawDesc = "" +
 	"totalCount\x12\x1c\n" +
 	"\ttotalPage\x18\x02 \x01(\x05R\ttotalPage\x12\x12\n" +
 	"\x04page\x18\x03 \x01(\x05R\x04page\x12\x18\n" +
-	"\aperpage\x18\x04 \x01(\x05R\aperpageB7Z5github.com/chise0904/golang_template/proto/pkg/commonb\x06proto3"
+	"\aperpage\x18\x04 \x01(\x05R\aperpageBAZ?github.com/chise0904/golang_template_apiserver/proto/pkg/commonb\x06proto3"
 
 var (
 	file_common_pagination_proto_rawDescOnce sync.Once

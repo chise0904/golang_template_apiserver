@@ -11,10 +11,9 @@ import (
 	sync "sync"
 	unsafe "unsafe"
 
-	common "github.com/chise0904/golang_template/proto/pkg/common"
+	common "github.com/chise0904/golang_template_apiserver/proto/pkg/common"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	_ "google.golang.org/protobuf/types/known/emptypb"
 )
 
 const (
@@ -2880,10 +2879,12 @@ const file_identity_identity_proto_rawDesc = "" +
 	"\x15AccountStatus_UNKNOWN\x10\x00\x12\x19\n" +
 	"\x15AccountStatus_ENABLED\x10\x01\x12\x19\n" +
 	"\x15AccountStatus_DELETED\x10\x02\x12\x19\n" +
-	"\x15AccountStatus_BLOCKED\x10\x032\xbb\x01\n" +
+	"\x15AccountStatus_BLOCKED\x10\x032\xe5\x02\n" +
 	"\x0fIdentityService\x12V\n" +
 	"\x0fRegisterAccount\x12 .identity.RegisterAccountRequest\x1a!.identity.RegisterAccountResponse\x12P\n" +
-	"\rCreateAccount\x12\x1e.identity.CreateAccountRequest\x1a\x1f.identity.CreateAccountResponseB9Z7github.com/chise0904/golang_template/proto/pkg/identityb\x06proto3"
+	"\rCreateAccount\x12\x1e.identity.CreateAccountRequest\x1a\x1f.identity.CreateAccountResponse\x12M\n" +
+	"\fLoginAccount\x12\x1d.identity.LoginAccountRequest\x1a\x1e.identity.LoginAccountResponse\x12Y\n" +
+	"\x10CheckAccessToken\x12!.identity.CheckAccessTokenRequest\x1a\".identity.CheckAccessTokenResponseBCZAgithub.com/chise0904/golang_template_apiserver/proto/pkg/identityb\x06proto3"
 
 var (
 	file_identity_identity_proto_rawDescOnce sync.Once
@@ -2966,10 +2967,14 @@ var file_identity_identity_proto_depIdxs = []int32{
 	0,  // 26: identity.CreateAccountResponse.account_type:type_name -> identity.AccountType
 	3,  // 27: identity.IdentityService.RegisterAccount:input_type -> identity.RegisterAccountRequest
 	31, // 28: identity.IdentityService.CreateAccount:input_type -> identity.CreateAccountRequest
-	16, // 29: identity.IdentityService.RegisterAccount:output_type -> identity.RegisterAccountResponse
-	32, // 30: identity.IdentityService.CreateAccount:output_type -> identity.CreateAccountResponse
-	29, // [29:31] is the sub-list for method output_type
-	27, // [27:29] is the sub-list for method input_type
+	13, // 29: identity.IdentityService.LoginAccount:input_type -> identity.LoginAccountRequest
+	14, // 30: identity.IdentityService.CheckAccessToken:input_type -> identity.CheckAccessTokenRequest
+	16, // 31: identity.IdentityService.RegisterAccount:output_type -> identity.RegisterAccountResponse
+	32, // 32: identity.IdentityService.CreateAccount:output_type -> identity.CreateAccountResponse
+	17, // 33: identity.IdentityService.LoginAccount:output_type -> identity.LoginAccountResponse
+	20, // 34: identity.IdentityService.CheckAccessToken:output_type -> identity.CheckAccessTokenResponse
+	31, // [31:35] is the sub-list for method output_type
+	27, // [27:31] is the sub-list for method input_type
 	27, // [27:27] is the sub-list for extension type_name
 	27, // [27:27] is the sub-list for extension extendee
 	0,  // [0:27] is the sub-list for field type_name

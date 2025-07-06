@@ -78,7 +78,7 @@ const file_common_type_proto_rawDesc = "" +
 	"\bBoolType\x12\t\n" +
 	"\x05NoSet\x10\x00\x12\b\n" +
 	"\x04True\x10\x01\x12\t\n" +
-	"\x05False\x10\x02B7Z5github.com/chise0904/golang_template/proto/pkg/commonb\x06proto3"
+	"\x05False\x10\x02BAZ?github.com/chise0904/golang_template_apiserver/proto/pkg/commonb\x06proto3"
 
 var (
 	file_common_type_proto_rawDescOnce sync.Once

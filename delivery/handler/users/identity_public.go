@@ -7,6 +7,8 @@ import (
 	"github.com/chise0904/golang_template_apiserver/pkg/utils"
 	"github.com/chise0904/golang_template_apiserver/proto/pkg/identity"
 	"github.com/labstack/echo/v4"
+
+	"github.com/chise0904/golang_template_apiserver/constants"
 )
 
 // EmailVerification implements delivery.UsersHandler.
@@ -63,53 +65,53 @@ import (
 // }
 
 // SendVerificationCode implements delivery.UsersHandler.
-func (h *handler) SendVerificationCode(c echo.Context) error {
-	connection := c.QueryParam("connection")
-	mr := &sendVerificationCodeRequest{}
-	err := c.Bind(mr)
-	if err != nil {
-		return errors.NewError(errors.ErrorInvalidInput, err.Error())
-	}
-	err = c.Validate(mr)
-	if err != nil {
-		return errors.NewError(errors.ErrorInvalidInput, err.Error())
-	}
-	_, err = h.identityGRPCClient.SendVerificationCode(c.Request().Context(), &identity.SendVerificationCodeRequest{
-		Connection: connection,
-		Action:     mr.Action,
-		Email:      mr.Email,
-		Phone:      mr.Phone,
-	})
-	if err != nil {
-		return err
-	}
-	return utils.MakeResponse(c, http.StatusCreated, "OK")
-}
+// func (h *handler) SendVerificationCode(c echo.Context) error {
+// 	connection := c.QueryParam("connection")
+// 	mr := &sendVerificationCodeRequest{}
+// 	err := c.Bind(mr)
+// 	if err != nil {
+// 		return errors.NewError(errors.ErrorInvalidInput, err.Error())
+// 	}
+// 	err = c.Validate(mr)
+// 	if err != nil {
+// 		return errors.NewError(errors.ErrorInvalidInput, err.Error())
+// 	}
+// 	_, err = h.identityGRPCClient.SendVerificationCode(c.Request().Context(), &identity.SendVerificationCodeRequest{
+// 		Connection: connection,
+// 		Action:     mr.Action,
+// 		Email:      mr.Email,
+// 		Phone:      mr.Phone,
+// 	})
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return utils.MakeResponse(c, http.StatusCreated, "OK")
+// }
 
-func (h *handler) SetPasswordWithoutLogin(c echo.Context) error {
-	by := c.QueryParam("by")
-	mr := &setPasswordRequest{}
-	err := c.Bind(mr)
-	if err != nil {
-		return errors.NewError(errors.ErrorInvalidInput, err.Error())
-	}
-	err = c.Validate(mr)
-	if err != nil {
-		return errors.NewError(errors.ErrorInvalidInput, err.Error())
-	}
+// func (h *handler) SetPasswordWithoutLogin(c echo.Context) error {
+// 	by := c.QueryParam("by")
+// 	mr := &setPasswordRequest{}
+// 	err := c.Bind(mr)
+// 	if err != nil {
+// 		return errors.NewError(errors.ErrorInvalidInput, err.Error())
+// 	}
+// 	err = c.Validate(mr)
+// 	if err != nil {
+// 		return errors.NewError(errors.ErrorInvalidInput, err.Error())
+// 	}
 
-	_, err = h.identityGRPCClient.SetPassword(c.Request().Context(), &identity.SetPasswordRequest{
-		By:       by,
-		Password: mr.Password,
-		Phone:    mr.Phone,
-		Email:    mr.Email,
-		Code:     mr.Code,
-	})
-	if err != nil {
-		return err
-	}
-	return utils.MakeResponse(c, http.StatusOK, "OK")
-}
+// 	_, err = h.identityGRPCClient.SetPassword(c.Request().Context(), &identity.SetPasswordRequest{
+// 		By:       by,
+// 		Password: mr.Password,
+// 		Phone:    mr.Phone,
+// 		Email:    mr.Email,
+// 		Code:     mr.Code,
+// 	})
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return utils.MakeResponse(c, http.StatusOK, "OK")
+// }
 
 // UserSignIN implements delivery.UsersHandler.
 func (h *handler) UserSignIN(c echo.Context) error {
@@ -182,44 +184,44 @@ func (h *handler) UserSignUP(c echo.Context) error {
 	})
 }
 
-type refreshAccessTokenRequest struct {
-	RefreshToken string `json:"refresh_token" validate:"required"`
-}
-type refreshAccessTokenResponse struct {
-	UserID          string `json:"user_id"`
-	AccessToken     string `json:"access_token"`
-	RefreshToken    string `json:"refresh_token"`
-	TokenType       string `json:"token_type"`
-	TokenExpiresIN  int64  `json:"token_expires_in"`
-	RefreshExpireIn int64  `json:"refresh_expire_in"`
-}
+// type refreshAccessTokenRequest struct {
+// 	RefreshToken string `json:"refresh_token" validate:"required"`
+// }
+// type refreshAccessTokenResponse struct {
+// 	UserID          string `json:"user_id"`
+// 	AccessToken     string `json:"access_token"`
+// 	RefreshToken    string `json:"refresh_token"`
+// 	TokenType       string `json:"token_type"`
+// 	TokenExpiresIN  int64  `json:"token_expires_in"`
+// 	RefreshExpireIn int64  `json:"refresh_expire_in"`
+// }
 
-func (h *handler) RefreshAccessToken(c echo.Context) error {
+// func (h *handler) RefreshAccessToken(c echo.Context) error {
 
-	mr := &refreshAccessTokenRequest{}
-	err := c.Bind(mr)
-	if err != nil {
-		return errors.NewError(errors.ErrorInvalidInput, err.Error())
-	}
-	err = c.Validate(mr)
-	if err != nil {
-		return errors.NewError(errors.ErrorInvalidInput, err.Error())
-	}
+// 	mr := &refreshAccessTokenRequest{}
+// 	err := c.Bind(mr)
+// 	if err != nil {
+// 		return errors.NewError(errors.ErrorInvalidInput, err.Error())
+// 	}
+// 	err = c.Validate(mr)
+// 	if err != nil {
+// 		return errors.NewError(errors.ErrorInvalidInput, err.Error())
+// 	}
 
-	r, err := h.identityGRPCClient.ReFreshToken(c.Request().Context(), &identity.ReFreshTokenRequest{
-		RefreshToken: mr.RefreshToken,
-	})
-	if err != nil {
-		return err
-	}
+// 	r, err := h.identityGRPCClient.ReFreshToken(c.Request().Context(), &identity.ReFreshTokenRequest{
+// 		RefreshToken: mr.RefreshToken,
+// 	})
+// 	if err != nil {
+// 		return err
+// 	}
 
-	return utils.MakeResponse(c, http.StatusCreated, &refreshAccessTokenResponse{
-		UserID:          r.AccountId,
-		AccessToken:     r.AccessToken,
-		RefreshToken:    r.RefreshToken,
-		TokenType:       r.TokenType,
-		TokenExpiresIN:  r.TokenExpireIn,
-		RefreshExpireIn: r.RefreshExpireIn,
-	})
+// 	return utils.MakeResponse(c, http.StatusCreated, &refreshAccessTokenResponse{
+// 		UserID:          r.AccountId,
+// 		AccessToken:     r.AccessToken,
+// 		RefreshToken:    r.RefreshToken,
+// 		TokenType:       r.TokenType,
+// 		TokenExpiresIN:  r.TokenExpireIn,
+// 		RefreshExpireIn: r.RefreshExpireIn,
+// 	})
 
-}
+// }

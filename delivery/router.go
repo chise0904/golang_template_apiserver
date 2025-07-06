@@ -24,7 +24,8 @@ type handler struct {
 	// logisticsHandler LogisticsHandler
 }
 
-func SetDelivery(e *echo.Echo,
+func SetDelivery(
+	e *echo.Echo,
 	config *configs.ApiGatewayConfig,
 	// chatAI chat_service.AIServiceClient,
 	// chatSVC chat_service.ChatServiceClient,
@@ -42,7 +43,7 @@ func SetDelivery(e *echo.Echo,
 		// chatSVC:          chatSVC,
 		// productHandler:   productHandler,
 		// storageHandler:   storageHandler,
-		// usersHandler:     usersHandler,
+		usersHandler: usersHandler,
 		// orderHandler:     orderHandler,
 		// sseHandler:       sseHandler,
 		// logisticsHandler: logisticsHandler,
@@ -55,7 +56,7 @@ func SetDelivery(e *echo.Echo,
 func setRouter(config *configs.ApiGatewayConfig, e *echo.Echo, h *handler) {
 
 	var apiRatelimitMiddle echo.MiddlewareFunc
-	var sourceApiRatelimitMiddle echo.MiddlewareFunc
+	// var sourceApiRatelimitMiddle echo.MiddlewareFunc
 
 	if config.RateLimitEnabled {
 		if config.RateLimitHeaderKey == "" {
@@ -64,15 +65,15 @@ func setRouter(config *configs.ApiGatewayConfig, e *echo.Echo, h *handler) {
 			log.Info().Msgf("api rate limit enabled,by header key: %s rate: %v, capacity: %v, capacity for public source: %v", config.RateLimitHeaderKey, config.TokenGenRate, config.TokenBucketCapacity, config.TokenBucketCapacityForPublicSource)
 		}
 		apiRatelimitMiddle = utils.RateLimitByClientIpMiddleware(config.RateLimitPoolSize, config.TokenGenRate, config.TokenBucketCapacity, config.RateLimitHeaderKey)
-		sourceApiRatelimitMiddle = utils.RateLimitByClientIpMiddleware(config.RateLimitPoolSize, config.TokenGenRate, config.TokenBucketCapacityForPublicSource, config.RateLimitHeaderKey)
+		// sourceApiRatelimitMiddle = utils.RateLimitByClientIpMiddleware(config.RateLimitPoolSize, config.TokenGenRate, config.TokenBucketCapacityForPublicSource, config.RateLimitHeaderKey)
 
 	}
 
 	apiV1PublicGroup := e.Group("/public/apis/v1", apiRatelimitMiddle)
 	apiV1PrivateGroup := e.Group("/apis/v1", apiRatelimitMiddle, middleware.JWTAuthMiddlewareFunc(h.usersHandler)) // access token needed
-	apiV1InternalGroup := e.Group("/internal/apis/v1")                                                             // internal service access only
+	// apiV1InternalGroup := e.Group("/internal/apis/v1")                                                             // internal service access only
 
-	apiV1PublicSourceGroup := e.Group("/public/source", sourceApiRatelimitMiddle)
+	// apiV1PublicSourceGroup := e.Group("/public/source", sourceApiRatelimitMiddle)
 
 	apiV1PublicGroup.Any("/echo/*", func(c echo.Context) error {
 		dumpReq, _ := httputil.DumpRequest(c.Request(), true)
@@ -124,12 +125,12 @@ func setRouter(config *configs.ApiGatewayConfig, e *echo.Echo, h *handler) {
 	// apiV1PrivateGroup.Add("GET", "/orders/reports/revenue/:year/:month/:day", h.orderHandler.RevenueDailyReport)
 
 	// users
-	// apiV1PublicGroup.Add("POST", "/users/accounts/signUp", h.usersHandler.UserSignUP)
+	apiV1PublicGroup.Add("POST", "/users/accounts/signUp", h.usersHandler.UserSignUP)
 	// apiV1PublicGroup.Add("POST", "/users/accounts/passwords", h.usersHandler.SetPasswordWithoutLogin)
 
 	// apiV1PublicGroup.Add("GET", "/users/accounts/emailVerification", h.usersHandler.EmailVerification)
 	// apiV1PublicGroup.Add("POST", "/users/accounts/emailVerification", h.usersHandler.EmailVerificationByCode)
-	// apiV1PublicGroup.Add("POST", "/users/oauth2/signIn", h.usersHandler.UserSignIN)
+	apiV1PublicGroup.Add("POST", "/users/oauth2/signIn", h.usersHandler.UserSignIN)
 	// apiV1PublicGroup.Add("POST", "/users/oauth2/refresh", h.usersHandler.RefreshAccessToken)
 	// apiV1PublicGroup.Add("POST", "/users/oauth2/verificationCodes", h.usersHandler.SendVerificationCode)
 
@@ -236,7 +237,7 @@ func setRouter(config *configs.ApiGatewayConfig, e *echo.Echo, h *handler) {
 	// apiV1PrivateGroup.GET("/logistics/settings/:setting_type/:logistics_type/:logistics_sub_type", h.logisticsHandler.GetLogisticsSetting)
 
 	//for test or demo...
-	apiV1PrivateGroup.POST("/orders/logistics/notification", h.orderHandler.DemoLogisticsNotification)
+	// apiV1PrivateGroup.POST("/orders/logistics/notification", h.orderHandler.DemoLogisticsNotification)
 
 	rs := e.Routes()
 	for i := 0; i < len(rs); i++ {
